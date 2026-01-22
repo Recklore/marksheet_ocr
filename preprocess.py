@@ -5,14 +5,18 @@ import numpy as np
 def correct_illumination(img):
     #CLAHE (adaptive histogram equalisation)
 
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
+    clahe = cv2.createCLAHE(clipLimit=1.5, tileGridSize=(8,8))
     return clahe.apply(img)
 
 
 def denoise(img):
-    #Median blur (salt and pepper noise removal)
-
-    return cv2.medianBlur(img, ksize=3)
+    kernel = np.ones((1,1), np.uint8)
+    img = cv2.dilate(img, kernel, iterations=1)
+    kernel = np.ones((1,1), np.uint8)
+    img = cv2.erode(img, kernel, iterations=3)
+    img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+    img = cv2.medianBlur(img, 1)
+    return img
 
 
 def grayscale_it(img):
@@ -112,43 +116,14 @@ def correct_perspective(img):
     pts = np.array([tl,tr,br,bl], dtype="float32")
     return four_point_transform(img, pts)
 
-def deskew(img):
-
-    #Invert image + projection profile
-
-    if np.mean(img == 255) > 0.5:
-        inv_img = cv2.bitwise_not(img)
-
-    best_angle = 0
-    best_score = -1
-
-    for angle in np.arange(-10, 10.1, 0.5):
-        (h, w) = inv_img.shape
-        M = cv2.getRotationMatrix2D((w//2, h//2), angle, 1.0)
-        rotated = cv2.warpAffine(inv_img, M, (w, h), flags=cv2.INTER_LINEAR, borderValue=0)
-
-        projection = np.sum(rotated == 255, axis=1)
-
-        score = np.var(projection)
-
-        if score > best_score:
-            best_score = score
-            best_angle = angle
-
-    (h, w) = img.shape
-    M = cv2.getRotationMatrix2D((w//2, h//2), best_angle, 1.0)
-    deskewed = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_LINEAR, borderValue=255)
-    
-    return deskewed
 
 def preprocess_image(img):
 
-    # Grayscale -> Illumination Correction -> Perspective Correction -> Deskewing ->  Denoise -> Binarisation
+    # Grayscale -> Illumination Correction -> Perspective Correction ->  Denoise -> Binarisation
 
     processed_img = grayscale_it(img)
-    processed_img = correct_illumination(processed_img)
     processed_img = correct_perspective(processed_img)
-    processed_img = deskew(processed_img)
+    processed_img = correct_illumination(processed_img)
     processed_img = denoise(processed_img)
     processed_img = binarise(processed_img)
 
