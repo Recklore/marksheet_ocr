@@ -124,8 +124,8 @@ def preprocess_image(img):
     processed_img = grayscale_it(img)
     processed_img = correct_perspective(processed_img)
     processed_img = correct_illumination(processed_img)
-    processed_img = denoise(processed_img)
-    processed_img = binarise(processed_img)
+    # processed_img = denoise(processed_img)
+    # processed_img = binarise(processed_img)
 
     return processed_img
 

@@ -40,7 +40,7 @@ def perform_ocr(images):
 
     return ocr_results
 
-def preprocess(images):
+def preprocess_images(images):
     #Preprocessing all images
 
     processed_images = []
@@ -48,16 +48,27 @@ def preprocess(images):
     for image in images:
         processed_images.append(preprocess_image(image))
 
-    return processed_images    
+    return processed_images
+
+def preprocess_ocr_text(ocr_results):
+    
+    ocr_text = ""
+
+    for ocr_result in ocr_results:
+        for _, text, __ in ocr_result:
+            ocr_text += f"{text} "
+
+    return ocr_text.strip()
 
 
 def main():
 
-    images = preprocess(load_marksheets(FOLDER_PATH))
+    images = preprocess_images(load_marksheets(FOLDER_PATH))
 
-    ocr_result = perform_ocr(images)
+    ocr_results = perform_ocr(images)
 
-    print(ocr_result)
+    # print(ocr_results)
+    print(preprocess_ocr_text(ocr_results))
 
     return
 
