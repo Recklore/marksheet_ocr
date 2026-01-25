@@ -52,26 +52,34 @@ def preprocess_images(images):
 
 def preprocess_ocr_text(ocr_results):
     
-    ocr_text = ""
+    processed_ocr_results = []
 
     for ocr_result in ocr_results:
-        for _, text, __ in ocr_result:
-            ocr_text += f"{text} "
 
-    return ocr_text.strip()
+        marksheet_data = []
+        for bbox, text, conf in ocr_result:
+            marksheet_data.append({
+                "text": text,
+                "confidence": round(conf, 2),
+                "position": [int(bbox[0][0]), int(bbox[0][1])]
+            })
+        
+        processed_ocr_results.append(marksheet_data)
+        
+
+    return processed_ocr_results
 
 
-def main():
+def ocr():
 
     images = preprocess_images(load_marksheets(FOLDER_PATH))
 
     ocr_results = perform_ocr(images)
 
-    # print(ocr_results)
-    print(preprocess_ocr_text(ocr_results))
+    ocr_results = preprocess_ocr_text(ocr_results)
 
-    return
+    return ocr_results
 
 
 if __name__ == "__main__":
-    main()
+    ocr()

@@ -12,7 +12,7 @@ class Data(BaseModel, Generic[T]):
 class SubjectMarks(BaseModel):
 
     subjectName: Annotated[Data[str], Field(description="Name of the subject")]
-    maxMarks: Annotated[Optional[Data[int]], Field(default=100, description="Maximum marks that can be obtained")]
+    maxMarks: Annotated[Optional[Data[int]], Field(default_factory=lambda: Data[int](value=100, confidence=1.0), description="Maximum marks that can be obtained")]
     obtainedMarks: Annotated[Data[int], Field(description="Marks obetained in the subject")]
     grade: Annotated[Optional[Data[str]], Field(default=None, description="Grade (if present) based on obtained marks")]
 
@@ -20,10 +20,10 @@ class CandidateDetails(BaseModel):
     name: Annotated[Data[str], Field(description="Name of the student")]
     mothersName: Annotated[Optional[Data[str]], Field(default=None, description="Nmae of studen's mother")]
     fathersName: Annotated[Optional[Data[str]], Field(default=None, description="Nmae of student's father")]
-    roll_no: Annotated[Data[int], Field(gt=0, description="Roll number of student")]
+    roll_no: Annotated[Data[int], Field(description="Roll number of student")]
     registration_no: Annotated[Optional[Data[str]], Field(default=None, description="student's registration number")]
     dob: Annotated[Data[str], Field(description="date of birht of student")]    # will use date datatype in future
-    exam_year: Annotated[Data[int], Field(ge=1900,description="year of exam")]
+    exam_year: Annotated[Data[int], Field(description="year of exam")]
     board: Annotated[Data[str], Field(description="Name of the examination board")]
     institution: Annotated[Data[str], Field(description="Name of the school")]
 

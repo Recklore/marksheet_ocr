@@ -1,3 +1,5 @@
 ocr_env
 testing
 __pycache__
+.env
+responses.json
