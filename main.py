@@ -43,7 +43,7 @@ def extract(client, system_prompt, ocr_data):
     return responses
 
 
-def main():
+def parse_marksheet():
 
     ocr_data = ocr()
     client, system_prompt = prepare_client()
@@ -54,4 +54,4 @@ def main():
         json.dump([response.model_dump() for response in responses], f, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
-    main()
+    parse_marksheet()

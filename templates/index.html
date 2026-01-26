@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marksheet Parser AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>📄 Marksheet Parser AI</h1>
+            <p>Upload a marksheet image to extract structured data using EasyOCR + LLM.</p>
+        </header>
+
+        <main class="grid-layout">
+            
+            <section class="card upload-section">
+                <h2>1. Upload Image</h2>
+                
+                <div class="drop-zone" id="dropZone">
+                    <p>Drag & Drop image here or <span>Click to Browse</span></p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                </div>
+
+                <div id="previewContainer" class="hidden">
+                    <img id="imagePreview" alt="Marksheet Preview">
+                    <button id="analyzeBtn" class="primary-btn">Analyze Marksheet</button>
+                    <button id="resetBtn" class="secondary-btn">Upload Another</button>
+                </div>
+
+                <div id="loader" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Processing OCR & AI analysis...</p>
+                </div>
+            </section>
+
+            <section class="card result-section">
+                <h2>2. Extracted Data</h2>
+                
+                <div id="emptyState">
+                    <p class="text-muted">Results will appear here after analysis.</p>
+                </div>
+
+                <div id="resultContent" class="hidden">
+                    <div class="info-group">
+                        <h3>Candidate Details</h3>
+                        <div id="candidateGrid" class="details-grid"></div>
+                    </div>
+
+                    <div class="info-group">
+                        <h3>Subject Marks</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Obtained</th>
+                                        <th>Max</th>
+                                        <th>Conf.</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="marksTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <button id="toggleJsonBtn" class="secondary-btn">Show Raw JSON</button>
+                    <pre id="rawJson" class="hidden"></pre>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

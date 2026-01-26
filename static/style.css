@@ -1,0 +1,203 @@
+:root {
+    --primary: #2563eb;       /* Blue */
+    --primary-hover: #1d4ed8;
+    --bg-color: #f3f4f6;      /* Light Grey Background */
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 2rem;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Grid Layout */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .grid-layout { grid-template-columns: 1fr; }
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Upload Section */
+.drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--primary);
+    background-color: #eff6ff;
+}
+
+.drop-zone span {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+#imagePreview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Buttons */
+.primary-btn, .secondary-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+
+.primary-btn {
+    background-color: var(--primary);
+    color: white;
+}
+.primary-btn:hover { background-color: var(--primary-hover); }
+.primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.secondary-btn {
+    background-color: #e5e7eb;
+    color: var(--text-main);
+}
+.secondary-btn:hover { background-color: #d1d5db; }
+
+/* Results Section */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-item {
+    background: #f9fafb;
+    padding: 0.75rem;
+    border-radius: 6px;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+}
+
+.detail-value { font-weight: 500; font-size: 0.95rem; }
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+th {
+    background-color: #f9fafb;
+    color: var(--text-muted);
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+.text-muted { color: var(--text-muted); font-style: italic;}
+
+/* Raw JSON Code Block */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    max-height: 300px;
+}
+
+/* Loader */
+#loader { margin-top: 2rem; text-align: center; }
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px auto;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
