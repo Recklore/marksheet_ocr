@@ -70,12 +70,15 @@ def preprocess_ocr_text(ocr_results):
     return processed_ocr_results
 
 
-def ocr():
+def ocr(image_path):
 
-    images = preprocess_images(load_marksheets(FOLDER_PATH))
+    image = cv2.imread(image_path)
 
-    ocr_results = perform_ocr(images)
+    # if not images:
+    #     images = preprocess_images(load_marksheets(FOLDER_PATH))
 
+    image = preprocess_images([image])
+    ocr_results = perform_ocr(image)
     ocr_results = preprocess_ocr_text(ocr_results)
 
     return ocr_results

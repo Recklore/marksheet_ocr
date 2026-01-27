@@ -49,13 +49,11 @@ def parse_marksheet(image_path):
     client, system_prompt = prepare_client()
     responses = extract(client, system_prompt, ocr_data)
 
-    # code for saving the response
-    # with open("responses.json", "w", encoding="utf-8") as f:
-    #     json.dump([response.model_dump() for response in responses], f, indent=4, ensure_ascii=False)
+    with open("responses.json", "w", encoding="utf-8") as f:
+        
+        json.dump([response.model_dump() for response in responses], f, indent=4, ensure_ascii=False)
 
-    result = [response.model_dump() for response in responses]
-
-    return result[0]
+        return f
 
 if __name__ == "__main__":
-    parse_marksheet(r".\marksheets\marks_sheet_1.webp")
+    parse_marksheet()

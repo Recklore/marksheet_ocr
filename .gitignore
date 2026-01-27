@@ -3,3 +3,4 @@ testing
 __pycache__
 .env
 responses.json
+uploads

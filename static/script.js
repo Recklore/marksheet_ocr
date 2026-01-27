@@ -113,15 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
         marksTableBody.innerHTML = '';
         data.subjects.forEach(sub => {
             const tr = document.createElement('tr');
-            const conf = (sub.obtained_marks.confidence * 100).toFixed(0);
-            
-            // Color code low confidence
+            const conf = (sub.obtainedMarks.confidence * 100).toFixed(0);
             const confColor = conf < 70 ? 'red' : 'green';
 
             tr.innerHTML = `
-                <td>${getVal(sub.subject_name)}</td>
-                <td>${getVal(sub.obtained_marks)}</td>
-                <td>${getVal(sub.max_marks)}</td>
+                <td>${getVal(sub.subjectName)}</td>
+                <td>${getVal(sub.obtainedMarks)}</td>
+                <td>${getVal(sub.maxMarks)}</td>
                 <td style="color:${confColor}; font-weight:bold;">${conf}%</td>
             `;
             marksTableBody.appendChild(tr);
