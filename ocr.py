@@ -29,7 +29,7 @@ def load_marksheets(PATH):
 def perform_ocr(images):
     #Performing ocr
 
-    reader = easyocr.Reader(['en', 'hi'])
+    reader = easyocr.Reader(['en', 'hi'], gpu=True if cv2.cuda.getCudaEnabledDeviceCount() else False)
     ocr_results = []
 
     for image in images:
